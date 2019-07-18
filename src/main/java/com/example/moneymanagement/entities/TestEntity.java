@@ -1,24 +1,30 @@
 package com.example.moneymanagement.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class TestEntity {
 
-    private String testFild;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String testField;
 
-    public String getTestFild() {
-        return testFild;
+    public String getTestField() {
+        return testField;
     }
 
-    public void setTestFild(String testFild) {
-        this.testFild = testFild;
+    public void setTestField(String testField) {
+        this.testField = testField;
     }
 
     @Override
     public String toString() {
         return "TestEntity{" +
-                "testFild='" + testFild + '\'' +
+                "testField='" + testField + '\'' +
                 '}';
     }
 }

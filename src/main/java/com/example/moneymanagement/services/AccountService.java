@@ -10,10 +10,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class AccountService {
 
-    @Autowired
     private AccountRepository accountRepo;
 
-
+    @Autowired
     public AccountService(AccountRepository accountRepo) {
         this.accountRepo = accountRepo;
     }
@@ -37,4 +36,3 @@ public class AccountService {
 
 
 }
-

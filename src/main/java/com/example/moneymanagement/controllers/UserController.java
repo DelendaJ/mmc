@@ -7,13 +7,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/api")
 public class UserController {
 
-    @Autowired
     private UserService userService;
 
     @Autowired
@@ -27,7 +27,7 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<User> getUser(@PathVariable UUID id) {
+    public ResponseEntity<Optional<User>> getUser(@PathVariable UUID id) {
         return new ResponseEntity<>(userService.findUserById(id), HttpStatus.OK);
     }
 
@@ -41,7 +41,7 @@ public class UserController {
         return new ResponseEntity<>(userService.updateUser(id, user), HttpStatus.OK);
     }
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/users/{id}")
     public ResponseEntity<Boolean> deleteUser(@PathVariable UUID id) {
         return new ResponseEntity<>(userService.deleteUser(id), HttpStatus.OK);
     }

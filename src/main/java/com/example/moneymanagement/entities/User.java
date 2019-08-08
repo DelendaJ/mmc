@@ -1,6 +1,7 @@
 package com.example.moneymanagement.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 
@@ -45,4 +48,8 @@ public class User {
     @NotEmpty
     @Column(name = "password")
     private String password;
+
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Account> accounts = new HashSet<>();
 }

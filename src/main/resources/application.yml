@@ -1,6 +1,14 @@
 ---
 server:
-  port: 8082
+  port: 8081
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
+        security: DEBUG
+      hibernate:
+        SQL: DEBUG
 
 spring:
   profiles: local

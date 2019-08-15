@@ -1,12 +1,10 @@
 package com.example.moneymanagement.requestobject;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import lombok.NoArgsConstructor;
 
-
-import javax.persistence.Entity;
-import javax.validation.constraints.NotEmpty;
 import java.util.UUID;
 
 @Data

@@ -1,10 +1,20 @@
 ---
+server:
+  port: 8081
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
+        security: DEBUG
+      hibernate:
+        SQL: DEBUG
 
 spring:
   profiles: local
   datasource:
-    url: jdbc:mysql://localhost:3307/moneymanagement
-    username: root
+    url: jdbc:mysql://localhost:3306/moneymanagement?useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: user
     password: password
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:

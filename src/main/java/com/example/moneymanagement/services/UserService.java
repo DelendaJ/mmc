@@ -1,6 +1,7 @@
 package com.example.moneymanagement.services;
 import com.example.moneymanagement.entities.User;
 import com.example.moneymanagement.repositories.UserRepository;
+import com.example.moneymanagement.requestobject.UserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,11 +36,14 @@ public class UserService {
 
     }
 
-    public User updateUser(UUID id, User user) {
-        User updatedUser = userRepo.findById(id).get();
-        updatedUser.setPassword(user.getPassword());
-        updatedUser.setEmail(user.getEmail());
-        return userRepo.save(user);
+    public User updateUser(UUID id, UserRequest user) {
+        User currentUser = userRepo.findById(id).get();
+        String password = user.getPassword();
+        String email = user.getEmail();
+
+        currentUser.setPassword(password);
+        currentUser.setEmail(email);
+        return userRepo.save(currentUser);
     }
 
 

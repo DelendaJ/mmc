@@ -1,6 +1,7 @@
 package com.example.moneymanagement.controllers;
 
 import com.example.moneymanagement.entities.User;
+import com.example.moneymanagement.requestobject.UserRequest;
 import com.example.moneymanagement.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,7 +39,7 @@ public class UserController {
     }
 
     @PutMapping("/users/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable UUID id, @RequestBody User user) {
+    public ResponseEntity<User> updateUser(@PathVariable UUID id, @RequestBody UserRequest user) {
         return new ResponseEntity<>(userService.updateUser(id, user), HttpStatus.OK);
     }
 

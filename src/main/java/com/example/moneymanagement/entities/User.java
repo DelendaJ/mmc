@@ -27,6 +27,7 @@ public class User {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @GeneratedValue(generator = "uuid2")
     @Column(name = "user_id", columnDefinition = "BINARY(16)")
+
     private UUID userId;
 
     @NotEmpty

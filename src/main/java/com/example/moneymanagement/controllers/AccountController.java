@@ -1,6 +1,7 @@
 package com.example.moneymanagement.controllers;
 
 import com.example.moneymanagement.entities.Account;
+import com.example.moneymanagement.requestobject.AccountRequest;
 import com.example.moneymanagement.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,7 +31,7 @@ public class AccountController {
     }
 
     @PostMapping("/account")
-    public ResponseEntity<Account> newAccount(@RequestBody Account account) {
+    public ResponseEntity<Account> newAccount(@RequestBody AccountRequest account) {
         return new ResponseEntity<>(accountService.createAnAccount(account), HttpStatus.CREATED);
     }
 

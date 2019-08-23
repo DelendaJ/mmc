@@ -14,6 +14,6 @@ import java.util.UUID;
 public class AccountRequest  {
     private UUID userId;
     private String accountName;
-    private Double balance = 0.0;
+    private Double balance;
 
 }

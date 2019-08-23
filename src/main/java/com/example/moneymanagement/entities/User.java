@@ -1,10 +1,10 @@
 package com.example.moneymanagement.entities;
 
 
+import com.example.moneymanagement.requestobject.AccountRequest;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 
@@ -16,7 +16,6 @@ import java.util.UUID;
 
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "user")
 @Entity
@@ -53,4 +52,9 @@ public class User {
     @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Account> accounts = new HashSet<>();
+
+    public User() {
+
+    }
+
 }

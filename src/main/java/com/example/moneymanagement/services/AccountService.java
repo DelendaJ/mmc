@@ -1,4 +1,5 @@
 package com.example.moneymanagement.services;
+
 import com.example.moneymanagement.entities.Account;
 import com.example.moneymanagement.repositories.AccountRepository;
 import com.example.moneymanagement.requestobject.AccountRequest;
@@ -30,8 +31,11 @@ public class AccountService {
         return accountRepo.findById(id).get();
     }
 
-    public Boolean deleteAnAccount(Long id) {
+    public Boolean deleteAnAccount(Long id) { try {
         accountRepo.deleteById(id);
+    } catch (Exception e) {
+        System.out.println("Account not found");
+    }
         return true;
     }
 
@@ -39,5 +43,25 @@ public class AccountService {
         return accountRepo.getAllAccountsById(id);
     }
 
+    public Account withdraw(Long id, Double amount) {
+        Account account = accountRepo.findById(id).get();
+        if (amount > 0 && amount <= account.getBalance()) {
+            account.setBalance(account.getBalance() - amount);
+        }
+        return accountRepo.save(account);
+    }
+
+    public Account deposit(Long id, Double amount) {
+        Account account = accountRepo.findById(id).get();
+        if (amount < 0)
+            throw new Error("Please enter a valid deposit amount.");
+        account.setBalance(account.getBalance() + amount);
+
+        return accountRepo.save(account);
+    }
+
+
 
 }
+
+

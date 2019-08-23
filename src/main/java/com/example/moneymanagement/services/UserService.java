@@ -1,4 +1,6 @@
 package com.example.moneymanagement.services;
+
+import com.example.moneymanagement.entities.Account;
 import com.example.moneymanagement.entities.User;
 import com.example.moneymanagement.repositories.UserRepository;
 import com.example.moneymanagement.requestobject.UserRequest;
@@ -6,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -22,16 +25,25 @@ public class UserService {
     }
 
 
-    public User newUser(User newUser) {
-        Optional<User> exists = Optional.ofNullable(userRepo.findUserByemail(newUser.getEmail()));
+    public User newUser(UserRequest user) {
+        Optional<User> exists = Optional.ofNullable(userRepo.findUserByemail(user.getEmail()));
         if (exists.isPresent())
             throw new Error("An account with this email already exists");
-        User user = new User();
-        user.setUsername(newUser.getUsername());
-        user.setPassword(newUser.getPassword());
-        user.setFirstName(newUser.getFirstName());
-        user.setLastName(newUser.getLastName());
-        user.setEmail(newUser.getEmail());
+        User newUser = new User();
+
+        String username = user.getUsername();
+        String password = user.getPassword();
+        String firstName = user.getFirstName();
+        String lastName = user.getLastName();
+        String email = user.getEmail();
+        Set<Account> account = user.getAccounts();
+
+        newUser.setUsername(username);
+        newUser.setPassword(password);
+        newUser.setFirstName(firstName);
+        newUser.setLastName(lastName);
+        newUser.setEmail(email);
+        newUser.setAccounts(account);
         return userRepo.save(newUser);
 
     }

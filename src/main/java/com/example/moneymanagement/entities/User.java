@@ -1,7 +1,6 @@
 package com.example.moneymanagement.entities;
 
 
-import com.example.moneymanagement.requestobject.AccountRequest;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -49,12 +48,21 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @NotEmpty
+    @Column(name = "password_confirm")
+    private String passwordConfirm;
+
     @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Account> accounts = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set roles;
+
     public User() {
 
     }
-
 }

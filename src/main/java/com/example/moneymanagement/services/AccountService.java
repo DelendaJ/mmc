@@ -31,11 +31,12 @@ public class AccountService {
         return accountRepo.findById(id).get();
     }
 
-    public Boolean deleteAnAccount(Long id) { try {
-        accountRepo.deleteById(id);
-    } catch (Exception e) {
-        System.out.println("Account not found");
-    }
+    public Boolean deleteAnAccount(Long id) {
+        try {
+            accountRepo.deleteById(id);
+        } catch (Exception e) {
+            System.out.println("Account not found");
+        }
         return true;
     }
 
@@ -59,7 +60,6 @@ public class AccountService {
 
         return accountRepo.save(account);
     }
-
 
 
 }

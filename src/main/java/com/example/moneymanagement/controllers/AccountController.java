@@ -8,9 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+
 @RestController
 @CrossOrigin
-@RequestMapping("/api/user")
+@RequestMapping("/api/account")
 public class AccountController {
 
     private AccountService accountService;
@@ -35,20 +37,24 @@ public class AccountController {
         return new ResponseEntity<>(accountService.createAnAccount(account), HttpStatus.CREATED);
     }
 
-    @PutMapping("{id}/account/{accountId}/withdraw/")
-    public ResponseEntity<Account> withdraw(@PathVariable Long accountId, @PathVariable Double amount) {
+    @PutMapping("/account/{accountId}/withdraw")
+    public ResponseEntity<Account> withdraw(@PathVariable Long accountId, @PathVariable BigDecimal amount) {
         return new ResponseEntity<>(accountService.withdraw(accountId, amount), HttpStatus.OK);
     }
 
-    @PutMapping("{id}/account/{accountId}/deposit/")
-    public ResponseEntity<Account> deposit(@PathVariable Long accountId, @PathVariable Double amount) {
+    @PutMapping("/account/{accountId}/deposit")
+    public ResponseEntity<Account> deposit(@PathVariable Long accountId, @PathVariable BigDecimal amount) {
         return new ResponseEntity<>(accountService.deposit(accountId, amount), HttpStatus.OK);
     }
 
-    @DeleteMapping("{id}/account/{accountId}")
+    @DeleteMapping("/account/{accountId}")
     public ResponseEntity<Boolean> deleteAnAccount(@PathVariable Long accountId) {
         return new ResponseEntity<>(accountService.deleteAnAccount(accountId), HttpStatus.OK);
     }
+
+
+
+
 
 }
 

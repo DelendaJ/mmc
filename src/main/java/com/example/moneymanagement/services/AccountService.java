@@ -6,6 +6,8 @@ import com.example.moneymanagement.requestobject.AccountRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 
 @Service
 public class AccountService {
@@ -19,7 +21,7 @@ public class AccountService {
 
     public Account createAnAccount(AccountRequest account) {
         String accountName = account.getAccountName();
-        Double balance = account.getBalance();
+        BigDecimal balance = account.getBalance();
         Account accountEntity = new Account();
 
         accountEntity.setAccountName(accountName);
@@ -27,13 +29,13 @@ public class AccountService {
         return accountRepo.save(accountEntity);
     }
 
-    public Account getUserAccount(Long id) {
-        return accountRepo.findById(id).get();
+    public Account getUserAccount(Long accountId) {
+        return accountRepo.findById(accountId).get();
     }
 
-    public Boolean deleteAnAccount(Long id) {
+    public Boolean deleteAnAccount(Long accountId) {
         try {
-            accountRepo.deleteById(id);
+            accountRepo.deleteById(accountId);
         } catch (Exception e) {
             System.out.println("Account not found");
         }
@@ -44,24 +46,24 @@ public class AccountService {
         return accountRepo.getAllAccountsById(id);
     }
 
-    public Account withdraw(Long id, Double amount) {
-        Account account = accountRepo.findById(id).get();
-        if (amount > 0 && amount <= account.getBalance()) {
-            account.setBalance(account.getBalance() - amount);
+    public Account withdraw(Long accountId, BigDecimal amount) {
+        Account account = accountRepo.findById(accountId).get();
+        if (amount.compareTo(BigDecimal.ZERO) < 0)
+            throw new Error("Please enter a valid withdrawal amount");
+        if ((account.getBalance().subtract(amount)).compareTo(BigDecimal.ZERO) >= 0) {
+            account.setBalance(account.getBalance().subtract(amount));
         }
         return accountRepo.save(account);
     }
 
-    public Account deposit(Long id, Double amount) {
-        Account account = accountRepo.findById(id).get();
-        if (amount < 0)
+    public Account deposit(Long accountId, BigDecimal amount) {
+        Account account = accountRepo.findById(accountId).get();
+        if (amount.compareTo(BigDecimal.ZERO) < 0)
             throw new Error("Please enter a valid deposit amount.");
-        account.setBalance(account.getBalance() + amount);
+        account.setBalance(account.getBalance().add(amount));
 
         return accountRepo.save(account);
     }
-
-
 }
 
 

@@ -13,7 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class UserRequest {
+public class ProfileRequest {
 
     private UUID userId;
     private String firstName;

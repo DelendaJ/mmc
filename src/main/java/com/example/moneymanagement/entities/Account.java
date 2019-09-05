@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Data
@@ -27,6 +28,6 @@ public class Account {
     private String accountName;
 
     @Column(name = "balance")
-    private Double balance;
+    private BigDecimal balance;
 
 }

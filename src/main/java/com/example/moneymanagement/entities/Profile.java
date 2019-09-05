@@ -18,7 +18,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Table(name = "user")
 @Entity
-public class User {
+public class Profile {
 
 
     @Id
@@ -56,13 +56,7 @@ public class User {
     @JsonIgnore
     private Set<Account> accounts = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set roles;
-
-    public User() {
+    public Profile() {
 
     }
 }

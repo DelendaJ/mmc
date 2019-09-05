@@ -4,6 +4,8 @@ package com.example.moneymanagement.requestobject;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Data
@@ -14,6 +16,6 @@ import java.util.UUID;
 public class AccountRequest  {
     private UUID userId;
     private String accountName;
-    private Double balance;
+    private BigDecimal balance;
 
 }

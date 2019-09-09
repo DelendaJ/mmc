@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 
 @Service
@@ -46,24 +47,35 @@ public class AccountService {
         return accountRepo.getAllAccountsById(id);
     }
 
-    public Account withdraw(Long accountId, BigDecimal amount) {
-        Account account = accountRepo.findById(accountId).get();
-        if (amount.compareTo(BigDecimal.ZERO) < 0)
-            throw new Error("Please enter a valid withdrawal amount");
-        if ((account.getBalance().subtract(amount)).compareTo(BigDecimal.ZERO) >= 0) {
-            account.setBalance(account.getBalance().subtract(amount));
+    public Account withdraw(BigDecimal amount, Account account) {
+        Optional<Optional<Account>> currentAccount = Optional.ofNullable(accountRepo.findAccountById(account.getAccId()));
+        if (currentAccount.isPresent()) {
+            validate(amount);
+            if (account.getBalance().subtract(amount).compareTo(BigDecimal.ZERO) >= 0) {
+                account.setBalance(account.getBalance().subtract(amount));
+            }
         }
         return accountRepo.save(account);
+
     }
 
-    public Account deposit(Long accountId, BigDecimal amount) {
-        Account account = accountRepo.findById(accountId).get();
-        if (amount.compareTo(BigDecimal.ZERO) < 0)
-            throw new Error("Please enter a valid deposit amount.");
-        account.setBalance(account.getBalance().add(amount));
+    public Account deposit(Account account, BigDecimal amount) {
+        Optional<Optional<Account>> currentAccount = Optional.ofNullable(accountRepo.findAccountById(account.getAccId()));
+        if (currentAccount.isPresent()) {
+            validate(amount);
+            account.setBalance(account.getBalance().add(amount));
+        }
 
         return accountRepo.save(account);
     }
+
+
+    private static void validate(BigDecimal amount) {
+        if (amount.compareTo(BigDecimal.ZERO) < 0)
+            throw new Error("Please enter a valid amount.");
+    }
+
 }
+
 
 
